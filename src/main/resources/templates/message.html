@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body >
+<div style="left: auto"  th:if="${receiveMessages != null}" th:each="receiveMessage : ${receiveMessages}">
+    <p th:text="${receiveMessage.message}"></p>
+    <p th:text="${receiveMessage.localDateTime}"></p>
+    <p th:text="${receiveMessage.toUser.name}"></p>
+</div>
+
+<br>
+<br>
+
+<div style="right: auto" th:if="${sendMessages != null}" th:each="sendMessage : ${sendMessages}">
+    <p th:text="${sendMessage.localDateTime}"></p>
+    <p th:text="${sendMessage.message}"></p>
+    <p th:text="${sendMessage.fromUser.name}"></p>
+</div>
+
+<footer>
+    <form action="/send" method="post">
+        <input th:if="${fromUser != null}" type="hidden" name="fromUser" th:value="${fromUser.id}">
+        <input th:if="${toUser != null}" type="hidden" name="toUser" th:value="${toUser.id}">
+        <input type="text" name="sendMessage" placeholder="Type your message...">
+        <input type="submit" value="send">
+    </form>
+</footer>
+</body>
+</html>
